@@ -17,7 +17,7 @@ def main():
         driver = uc.Chrome(options=options)
         print("pesquisando "+cpf)
         #gseach
-        driver.get("https://www.google.com/search?client=firefox-b-d&q=consulta+pje")
+        driver.get("https://www.google.com/search?q=consulta+pje")
         while True:
             try:
                 WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[7]/div/div[10]/div/div[2]/div[2]/div/div/div[1]/div/div/div[1]/div/a/h3")))
