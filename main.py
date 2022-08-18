@@ -12,6 +12,7 @@ def main():
     f = open("cpfs.txt", "r")
     cpfs = f.readlines()
 
+    o = open('output.txt', 'w+')
     for cpf in cpfs:
         print("pesquisando "+cpf)
         driver.get("https://www.google.com/search?client=firefox-b-d&q=consulta+pje")
@@ -29,10 +30,13 @@ def main():
             t=driver.find_element(By.XPATH, '/html/body/div[5]/div/div/div/div[2]/form/div[2]/div/table/tbody')
             rows = t.find_elements(By.TAG_NAME, "tr")
             for row in rows:
-                if "teto" in row.find_element(By.CLASS_NAME, "btn-block").text:
-                    print('encontrado '+row.find_element(By.CLASS_NAME, "btn-block").text)
+                if "teto" or "Teto" in row.find_element(By.CLASS_NAME, "btn-block").text:
+                    print('encontrado')
+                    o.write(cpf+","+row.find_element(by.class_name, "btn-block").text)
+                    break
                 else:
                     print('sem processo de teto')
+                    o.write(cpf+",sem processo de teto encontrado")
         except:
             print("sem processo de teto") 
         driver.close()
