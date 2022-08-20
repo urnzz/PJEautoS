@@ -8,7 +8,7 @@ def main():
     cpfs = f.readlines()
     o = open('output.txt', 'w+')
     options = uc.ChromeOptions()
-    options.headless=True
+    #options.headless=True
     driver = uc.Chrome(options=options)
     for cpf in cpfs:
         try:
@@ -38,10 +38,10 @@ def main():
                             o.write(cpf.strip()+","+row.find_element(By.CLASS_NAME, "btn-block").text+"\n")
                             break
                         else:
-                            raise Exception('') 
+                            raise Exception('')
             except:
                 o.write(cpf.strip()+",\n")
-                print("sem processo de teto") 
+                print("sem processo de teto")
         except:
             o.write(cpf.strip()+",erro\n")
             print('erro encontrado, pulando cpf: '+cpf)
