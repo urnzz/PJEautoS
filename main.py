@@ -38,8 +38,7 @@ def main():
                             o.write(cpf.strip()+","+row.find_element(By.CLASS_NAME, "btn-block").text+"\n")
                             break
                         else:
-                            print('processo encontrado porém não é teto')
-                            o.write(cpf.strip()+",\n")
+                            raise Exception('') 
             except:
                 o.write(cpf.strip()+",\n")
                 print("sem processo de teto") 
