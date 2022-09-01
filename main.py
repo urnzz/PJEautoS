@@ -8,7 +8,7 @@ def main():
     cpfs = f.readlines()
     o = open('output.txt', 'w+')
     options = uc.ChromeOptions()
-    options.headless=True
+    #options.headless=True
     driver = uc.Chrome(options=options)
     for cpf in cpfs:
         try:
