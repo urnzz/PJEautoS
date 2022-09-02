@@ -8,7 +8,7 @@ def main():
     cpfs = f.readlines()
     o = open('output.txt', 'w+')
     options = uc.ChromeOptions()
-    #options.headless=True
+    options.headless=True
     driver = uc.Chrome(options=options)
     for cpf in cpfs:
         try:
@@ -41,8 +41,11 @@ def main():
                             raise Exception('')
             except:
                 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[5]/div/div/div/div[2]/form/div[2]/div/dl/dt/span')))
-                o.write(cpf.strip()+",\n")
-                print("sem processo de teto")
+                if 'Sua pesquisa' in driver.find_element(By.XPATH, '/html/body/div[5]/div/div/div/div[2]/form/div[2]/div/dl/dt/span').text:
+                    o.write(cpf.strip()+",\n")
+                    print("sem processo de teto")
+                else:
+                    raise Exception('')
         except:
             o.write(cpf.strip()+",erro\n")
             print('erro encontrado, pulando cpf: '+cpf)
