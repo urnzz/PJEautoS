@@ -76,7 +76,7 @@ def main():
     f = open("cpfs.txt", "r")
     reader=f.readlines()
     t=[]
-    T(int(10), t, writer, reader)
+    T(int(12), t, writer, reader)
     for i in t:
         i.join()
     o.close()
