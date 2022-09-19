@@ -8,9 +8,11 @@ import csv
 def T(num, t, writer, reader):
     for i in range(num):
         row_count = sum(1 for row in reader)
-        n=row_count/num
+        n=int(row_count)/num
         cpfs=[]
-        for a in range((n*i)-(n*(i-1)):
+        l=int(n)*i-int(n)*(i-1)
+        print(l)
+        for a in range(l):
             cpfs.append(a)
         th=threading.Thread(target=S, args=(writer, reader, cpfs))
         th.start()
@@ -19,7 +21,7 @@ def T(num, t, writer, reader):
 def S(writer, reader, cpfs):
     n=0
     for cpf in cpfs:
-        print(n+' de '+len(cpfs))
+        print(str(n)+' de '+str(len(cpfs)))
         try:
             options = uc.ChromeOptions()
             options.headless=True
@@ -44,12 +46,12 @@ def S(writer, reader, cpfs):
                     f= str(row.text)
                     if "teto" in f:
                         print('encontrado')
-                        writer.writerow([cpf.strip(),f.strip()])
+                        writer.writerow([cpf.strip(),str(f).strip()])
                         break
                     else:
                         if "Teto" in f:
                             print('encontrado')
-                            writer.writerow([cpf.strip(),f.strip()])
+                            writer.writerow([cpf.strip(),str(f).strip()])
                             break
                         else:
                             writer.writerow([cpf.strip(),'none'])
@@ -72,10 +74,9 @@ def main():
     o = open('output.txt', 'w+')
     writer=csv.writer(o)
     f = open("cpfs.txt", "r")
-    reader=csv.reader(f, delimiter=',', quotechar='"')
-    cpfs = f.readlines()
+    reader=f.readlines()
     t=[]
-    T(10, t, writer, reader)
+    T(int(10), t, writer, reader)
     for i in t:
         i.join()
     o.close()
