@@ -13,7 +13,7 @@ def T(num, t, writer, reader):
         l=int(n)*i-int(n)*(i-1)
         print(l)
         for a in range(l):
-            cpfs.append(a)
+            cpfs.append(reader[a])
         th=threading.Thread(target=S, args=(writer, reader, cpfs))
         th.start()
         t.append(th)
