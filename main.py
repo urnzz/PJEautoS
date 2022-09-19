@@ -10,9 +10,9 @@ def T(num, t, writer, reader):
         row_count = sum(1 for row in reader)
         n=int(row_count)/num
         cpfs=[]
-        l=int(n)*i-int(n)*(i-1)
-        print(l)
-        for a in range(l):
+        l, ll=int(n)*(i), int(n)*(i+1)
+        print(l, ll)
+        for a in range(l, ll):
             cpfs.append(reader[a])
         th=threading.Thread(target=S, args=(writer, reader, cpfs))
         th.start()
