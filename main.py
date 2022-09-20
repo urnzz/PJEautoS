@@ -26,7 +26,7 @@ def S(writer, reader, cpfs):
             options = uc.ChromeOptions()
             options.headless=True
             driver = uc.Chrome(options=options)
-            print("pesquisando no PJE "+cpf.strip())
+            #print("pesquisando no PJE "+cpf.strip())
             driver.get("https://www.google.com/search?client=firefox-b-d&q=consulta+pje")
             WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, '//*[@id="rso"]/div[1]/div/div/div[1]/div/a/h3')))
             gs = driver.find_element(By.XPATH, '//*[@id="rso"]/div[1]/div/div/div[1]/div/a/h3')
@@ -45,28 +45,28 @@ def S(writer, reader, cpfs):
                 for row in rows:
                     f= str(row.text)
                     if "teto" in f:
-                        print('encontrado')
+                        #print('encontrado')
                         writer.writerow([cpf.strip(),str(f).strip()])
                         break
                     else:
                         if "Teto" in f:
-                            print('encontrado')
+                            #print('encontrado')
                             writer.writerow([cpf.strip(),str(f).strip()])
                             break
                         else:
                             writer.writerow([cpf.strip(),'none'])
-                            print("sem processo de teto")
+                            #print("sem processo de teto")
             except:
                 WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[5]/div/div/div/div[2]/form/div[2]/div/dl/dt/span')))
                 if 'Sua pesquisa' in driver.find_element(By.XPATH, '/html/body/div[5]/div/div/div/div[2]/form/div[2]/div/dl/dt/span').text:
                     writer.writerow([cpf.strip(),'none'])
-                    print("sem processo de teto")
+                    #print("sem processo de teto")
                 else:
                     raise Exception('')
             driver.close()
         except:
             writer.writerow([cpf.strip(),'erro'])
-            print('erro encontrado, pulando cpf: '+cpf)
+            #print('erro encontrado, pulando cpf: '+cpf)
             pass
         n+=1
 
