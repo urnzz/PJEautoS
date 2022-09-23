@@ -46,12 +46,12 @@ def S(writer, reader, cpfs):
                     f= str(row.text)
                     if "teto" in f:
                         #print('encontrado')
-                        writer.writerow([cpf.strip(),str(f).strip()])
+                        writer.writerow([cpf.strip(),str(f).strip().replace('\n','')])
                         break
                     else:
                         if "Teto" in f:
                             #print('encontrado')
-                            writer.writerow([cpf.strip(),str(f).strip()])
+                            writer.writerow([cpf.strip(),str(f).strip().replace('\n','')])
                             break
                         else:
                             writer.writerow([cpf.strip(),'none'])
@@ -76,7 +76,7 @@ def main():
     f = open("cpfs.txt", "r")
     reader=f.readlines()
     t=[]
-    T(int(12), t, writer, reader)
+    T(int(2), t, writer, reader)
     for i in t:
         i.join()
     o.close()
