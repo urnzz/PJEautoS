@@ -11,7 +11,6 @@ def T(num, t, writer, reader):
         n=int(row_count)/num
         cpfs=[]
         l, ll=int(n)*(i), int(n)*(i+1)
-        print(l, ll)
         for a in range(l, ll):
             cpfs.append(reader[a])
         th=threading.Thread(target=S, args=(writer, reader, cpfs))
@@ -27,7 +26,7 @@ def S(writer, reader, cpfs):
             options.headless=True
             driver = uc.Chrome(options=options)
             #print("pesquisando no PJE "+cpf.strip())
-            driver.get("https://www.google.com/search?client=firefox-b-d&q=consulta+pje")
+            driver.get("https://www.google.com/search?client=firefox-b-d&q=consulta+pje+trf1")
             WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, '//*[@id="rso"]/div[1]/div/div/div[1]/div/a/h3')))
             gs = driver.find_element(By.XPATH, '//*[@id="rso"]/div[1]/div/div/div[1]/div/a/h3')
             gs.click()
@@ -39,8 +38,8 @@ def S(writer, reader, cpfs):
                 cpfC.send_keys(i)
             driver.find_element(By.XPATH, '//*[@id="fPP:searchProcessos"]').click()
             try:
-                WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[5]/div/div/div/div[2]/form/div[2]/div/table/tbody/tr')))
-                t=driver.find_element(By.XPATH, '/html/body/div[5]/div/div/div/div[2]/form/div[2]/div/table/tbody')
+                WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[6]/div/div/div/div[2]/form/div[2]/div/table/tbody/tr')))
+                t=driver.find_element(By.XPATH, '/html/body/div[6]/div/div/div/div[2]/form/div[2]/div/table/tbody')
                 rows = t.find_elements(By.TAG_NAME, "tr")
                 for row in rows:
                     f= str(row.text)
@@ -57,8 +56,8 @@ def S(writer, reader, cpfs):
                             writer.writerow([cpf.strip(),'none'])
                             #print("sem processo de teto")
             except:
-                WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[5]/div/div/div/div[2]/form/div[2]/div/dl/dt/span')))
-                if 'Sua pesquisa' in driver.find_element(By.XPATH, '/html/body/div[5]/div/div/div/div[2]/form/div[2]/div/dl/dt/span').text:
+                WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[6]/div/div/div/div[2]/form/div[2]/div/dl/dt/span')))
+                if 'Sua pesquisa' in driver.find_element(By.XPATH, '/html/body/div[6]/div/div/div/div[2]/form/div[2]/div/dl/dt/span').text:
                     writer.writerow([cpf.strip(),'none'])
                     #print("sem processo de teto")
                 else:
@@ -76,7 +75,7 @@ def main():
     f = open("cpfs.txt", "r")
     reader=f.readlines()
     t=[]
-    T(int(2), t, writer, reader)
+    T(int(10), t, writer, reader)
     for i in t:
         i.join()
     o.close()
